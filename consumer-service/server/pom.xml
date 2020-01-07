@@ -19,7 +19,7 @@
         </dependency>
         <dependency>
             <groupId>com.yc.example</groupId>
-            <artifactId>service-httpclient</artifactId>
+            <artifactId>service-rpc</artifactId>
         </dependency>
         <dependency>
             <groupId>com.yc.example</groupId>
