@@ -14,7 +14,7 @@
         <module>provide-service</module>
         <module>service-parent</module>
         <module>service-common</module>
-        <module>service-httpclient</module>
+        <module>service-rpc</module>
     </modules>
 
 

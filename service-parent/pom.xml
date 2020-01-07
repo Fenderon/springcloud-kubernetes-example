@@ -55,7 +55,7 @@
 
             <dependency>
                 <groupId>com.yc.example</groupId>
-                <artifactId>service-httpclient</artifactId>
+                <artifactId>service-rpc</artifactId>
                 <version>${service.project.version}</version>
             </dependency>
             <dependency>
