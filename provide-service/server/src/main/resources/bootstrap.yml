@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: provide-service
+  cloud:
+    kubernetes:
+      client:
+        namespace: my-service
+server:
+  port: 8080
+
+feign:
+  okhttp:
+    enabled: true

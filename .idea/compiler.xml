@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="gateway-client" />
+        <module name="gateway-common" />
+        <module name="service-common" />
+        <module name="consumer-server" />
+        <module name="provide-client" />
+        <module name="consumer-common" />
+        <module name="service-httpclient" />
+        <module name="provide-server" />
+        <module name="provide-common" />
+        <module name="gateway-server" />
+        <module name="consumer-client" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="common" options="-parameters" />
+      <module name="consumer-client" options="-parameters" />
+      <module name="consumer-common" options="-parameters" />
+      <module name="consumer-server" options="-parameters" />
+      <module name="gateway-client" options="-parameters" />
+      <module name="gateway-common" options="-parameters" />
+      <module name="gateway-server" options="-parameters" />
+      <module name="gateway-service" options="-parameters" />
+      <module name="provide-client" options="-parameters" />
+      <module name="provide-common" options="-parameters" />
+      <module name="provide-server" options="-parameters" />
+      <module name="server" options="-parameters" />
+      <module name="service-common" options="-parameters" />
+      <module name="service-httpclient" options="-parameters" />
+    </option>
+  </component>
+</project>

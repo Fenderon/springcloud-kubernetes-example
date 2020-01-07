@@ -1,0 +1,78 @@
+# 定义多个流程的顺序
+stages:
+  - build
+  - deploy_k8s
+
+# master ---- 构建流程
+job_build_master:
+  stage: build
+  only:
+    - master
+  tags:
+    - master
+  script:
+    #这里会同时构建client、common模块
+    - mvn clean install -f pom.xml -pl client -am
+    - mvn clean package -pl server -Dmaven.test.skip=true -Dtag.version=master.latest
+    - mvn dockerfile:push -pl server -Dtag.version=master.latest
+
+job_deploy_k8s_master:
+  stage: deploy_k8s
+  only:
+    - master
+  tags:
+    - master
+  script:
+    - kubectl get nodes
+    - kubectl delete --ignore-not-found=true -f ./server/src/main/resources/gateway-master.yaml
+    - kubectl apply -f ./server/src/main/resources/gateway-master.yaml
+
+# test ---- 构建流程
+job_build_test:
+  stage: build
+  only:
+    - test
+  tags:
+    - test
+  script:
+    #这里会同时构建client、common模块
+    - mvn clean install -f pom.xml -pl client -am
+    - mvn clean package -pl server -Dmaven.test.skip=true -Dtag.version=test.latest
+    - mvn dockerfile:push -pl server -Dtag.version=test.latest
+
+job_deploy_k8s_test:
+  stage: deploy_k8s
+  only:
+    - test
+  tags:
+    - test
+  script:
+    - kubectl get nodes
+    - kubectl delete --ignore-not-found=true -f ./server/src/main/resources/gateway-test.yaml
+    - kubectl apply -f ./server/src/main/resources/gateway-test.yaml
+
+
+
+# dev ---- 构建流程
+job_build_dev:
+  stage: build
+  only:
+    - dev
+  tags:
+    - dev
+  script:
+    #这里会同时构建client、common模块
+    - mvn clean install -f pom.xml -pl client -am
+    - mvn clean package -pl server -Dmaven.test.skip=true -Dtag.version=dev.latest
+    - mvn dockerfile:push -pl server -Dtag.version=dev.latest
+
+job_deploy_k8s_dev:
+  stage: deploy_k8s
+  only:
+    - dev
+  tags:
+    - dev
+  script:
+    - kubectl get nodes
+    - kubectl delete --ignore-not-found=true -f ./server/src/main/resources/gateway-dev.yaml
+    - kubectl apply -f ./server/src/main/resources/gateway-dev.yaml

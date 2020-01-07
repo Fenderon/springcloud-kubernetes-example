@@ -1,0 +1,9 @@
+server:
+  port: ${random.int[10240,65536]}
+spring:
+  cloud:
+    discovery:
+      enabled: false
+ribbon:
+  okhttp:
+    enabled: false

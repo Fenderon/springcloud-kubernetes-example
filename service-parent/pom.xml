@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.5.RELEASE</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>service-parent</artifactId>
+    <groupId>com.yc.example</groupId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <docker.image.prefix>myregistry.com:5000</docker.image.prefix>
+        <java.version>1.8</java.version>
+        <cloud.version>Greenwich.SR2</cloud.version>
+        <tag.version></tag.version>
+        <cloud-k8s.version>1.1.1.RELEASE</cloud-k8s.version>
+        <dockerfile.plugin.version>1.3.6</dockerfile.plugin.version>
+        <guava.version>20.0</guava.version>
+        <service.project.version>1.0</service.project.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-kubernetes-ribbon</artifactId>
+                <version>${cloud-k8s.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.yc.example</groupId>
+                <artifactId>service-httpclient</artifactId>
+                <version>${service.project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.yc.example</groupId>
+                <artifactId>service-common</artifactId>
+                <version>${service.project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

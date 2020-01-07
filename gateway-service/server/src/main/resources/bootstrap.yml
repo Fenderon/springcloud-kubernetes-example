@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      enabled: true
+      discovery:
+        locator:
+          enabled: true
+          url-expression: "'http://'+serviceId"
+    kubernetes:
+      client:
+        namespace: my-service
+server:
+  port: 8080

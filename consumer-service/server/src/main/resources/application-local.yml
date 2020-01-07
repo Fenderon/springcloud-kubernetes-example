@@ -1,0 +1,11 @@
+spring:
+  cloud:
+    discovery:
+      enabled: false
+
+server:
+  port: ${random.int[10240,65536]}
+
+ribbon:
+  okhttp:
+    enabled: false

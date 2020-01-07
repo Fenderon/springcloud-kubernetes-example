@@ -1,0 +1,24 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.cloud.loadbalancer: TRACE
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    discovery:
+      enabled: false
+    gateway:
+      enabled: true
+ribbon:
+  okhttp:
+    enabled: false
