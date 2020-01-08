@@ -20,4 +20,7 @@
     3：配置k8s服务hosts：
         例如：127.0.0.1 provide-service consumer-service
     4：启动各项目，即可
+
+本地测试地址:http://localhost:8080/provide-service/api/hello
+swagger地址：http://localhost:8080/doc.html
       
