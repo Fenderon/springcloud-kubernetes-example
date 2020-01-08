@@ -1,4 +1,4 @@
-package com.yc.springcloud.kubernetes.example.gateway.localconfiguration;
+package com.yc.springcloud.kubernetes.example.gateway.configuration.local;
 
 import com.netflix.loadbalancer.Server;
 import com.yc.springcloud.kubernetes.examples.httpclient.LocalServerListLoader;

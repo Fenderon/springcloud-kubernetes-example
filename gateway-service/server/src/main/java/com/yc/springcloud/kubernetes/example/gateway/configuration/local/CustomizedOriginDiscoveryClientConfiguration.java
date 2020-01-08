@@ -1,4 +1,4 @@
-package com.yc.springcloud.kubernetes.example.gateway.localconfiguration;
+package com.yc.springcloud.kubernetes.example.gateway.configuration.local;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.cloud.client.discovery.DiscoveryClient;

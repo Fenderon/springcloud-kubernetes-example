@@ -1,4 +1,4 @@
-package com.yc.springcloud.kubernetes.example.gateway.localconfiguration;
+package com.yc.springcloud.kubernetes.example.gateway.configuration.local;
 
 import com.yc.springcloud.kubernetes.examples.httpclient.LocalServerListLoader;
 import lombok.extern.slf4j.Slf4j;
