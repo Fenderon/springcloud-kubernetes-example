@@ -32,7 +32,9 @@ spec:
 #          name: sidecar
 #          imagePullPolicy: IfNotPresent
 #          command: ['sh']
-#          args: ['-c','mkdir -p /skywalking/agent && cp -r /usr/skywalking/agent/* /skywalking/agent']
+          # 激活springcloud gateway 插件
+#          args: ['-c','mkdir -p /skywalking/agent && cp -r /usr/skywalking/agent/* /skywalking/agent
+#          && cp /skywalking/agent/optional-plugins/apm-spring-cloud-gateway-2.x-plugin-6.5.0.jar /skywalking/agent/plugins/apm-spring-cloud-gateway-2.x-plugin-6.5.0.jar']
 #          volumeMounts:
 #            - mountPath: /skywalking/agent
 #              name: sw-agent
