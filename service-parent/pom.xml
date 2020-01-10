@@ -26,6 +26,7 @@
         <swagger.version>2.9.2</swagger.version>
         <swagger-annotations.version>1.5.20</swagger-annotations.version>
         <swagger-bootstrap-ui.version>1.9.6</swagger-bootstrap-ui.version>
+        <logstash-logback-encoder.version>6.3</logstash-logback-encoder.version>
     </properties>
 
     <dependencyManagement>
@@ -85,6 +86,12 @@
                 <version>${swagger-bootstrap-ui.version}</version>
             </dependency>
             <!--引入Swagger2依赖——结束 -->
+
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>${logstash-logback-encoder.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

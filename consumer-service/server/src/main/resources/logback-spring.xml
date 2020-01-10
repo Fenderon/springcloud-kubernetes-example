@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+
+    <appender name="stash" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>info</level>
+        </filter>
+<!--        <file>./logs/app.log</file>-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>./logs/app.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+    </appender>
+
+    <springProfile name="dev">
+        <!-- 开发环境时激活 -->
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="stash"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="local">
+        <!-- 本地环境时激活 -->
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="stash"/>
+        </root>
+    </springProfile>
+
+</configuration>
