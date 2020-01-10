@@ -39,6 +39,10 @@
             <artifactId>swagger-bootstrap-ui</artifactId>
         </dependency>
         <!--引入Swagger2依赖——结束 -->
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
