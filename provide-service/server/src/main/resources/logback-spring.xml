@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml" />
-    <conversionRule conversionWord="tid" converterClass="org.apache.skywalking.apm.toolkit.log.logback.v1.x.LogbackPatternConverter"/>
+<!--    <conversionRule conversionWord="tid" converterClass="org.apache.skywalking.apm.toolkit.log.logback.v1.x.LogbackPatternConverter"/>-->
 
     <appender name="stash" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
@@ -21,7 +21,7 @@
                     <pattern>
                         {
                         "level": "%level",
-                        "traceId": "%tid",
+<!--                        "traceId": "%tid",-->
                         "thread": "%thread",
                         "class": "%logger{1.}:%L",
                         "message": "%message",

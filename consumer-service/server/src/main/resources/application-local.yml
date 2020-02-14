@@ -2,7 +2,10 @@ spring:
   cloud:
     discovery:
       enabled: false
-
+    kubernetes:
+      discovery:
+        catalog-services-watch:
+          enabled: false
 server:
   port: ${random.int[10240,65536]}
 

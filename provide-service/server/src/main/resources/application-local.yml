@@ -4,6 +4,10 @@ spring:
   cloud:
     discovery:
       enabled: false
+    kubernetes:
+      discovery:
+        catalog-services-watch:
+          enabled: false
 ribbon:
   okhttp:
     enabled: false
