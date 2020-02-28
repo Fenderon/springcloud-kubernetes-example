@@ -32,7 +32,7 @@ public class CacheTest {
         //演示并发
         CountDownLatch countDownLatch = new CountDownLatch(1);
 
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 100; i++) {
             new Thread(() -> {
                 try {
                     countDownLatch.await();
@@ -40,7 +40,7 @@ public class CacheTest {
                     e.printStackTrace();
                 }
                 try {
-                    computeWrapper.compute(new CacheReqeust());
+                    computeWrapper.compute(new CacheReqeust(),100,TimeUnit.MICROSECONDS);
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {

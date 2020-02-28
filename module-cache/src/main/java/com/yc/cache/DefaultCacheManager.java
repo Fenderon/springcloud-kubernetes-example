@@ -44,4 +44,9 @@ public class DefaultCacheManager<V> implements CacheManager<V> {
     public V get(String key) {
         return (V) cache.get(key);
     }
+
+    @Override
+    public void remove(CacheKey arg) {
+        cache.remove(arg);
+    }
 }

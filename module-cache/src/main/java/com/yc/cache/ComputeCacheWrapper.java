@@ -16,6 +16,10 @@ public class ComputeCacheWrapper<K extends CacheKey, V> implements Computable<K,
 
     private ExecutorService executorService;
 
+    private ExecutorService singleExecutor = Executors.newSingleThreadExecutor();
+
+    private final static ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(5);
+
     private ComputeCacheWrapper() {
 
     }
@@ -59,4 +63,27 @@ public class ComputeCacheWrapper<K extends CacheKey, V> implements Computable<K,
         return v;
     }
 
+    public V compute(final K arg, long expire, TimeUnit timeUnit) throws ExecutionException, InterruptedException, TimeoutException {
+        if (expire > 0) {
+            scheduledExecutor.schedule(new Runnable() {
+                @Override
+                public void run() {
+                    expire(arg);
+                }
+            }, expire, timeUnit);
+        }
+        return compute(arg);
+    }
+
+    private synchronized void expire(K arg) {
+        Future<V> f = cacheManager.get(arg);
+        if (f != null) {
+            if (!f.isDone()) {
+                System.out.println("任务被取消");
+                f.cancel(true);
+            }
+            System.out.println("过期时间到，缓存被清除");
+            cacheManager.remove(arg);
+        }
+    }
 }

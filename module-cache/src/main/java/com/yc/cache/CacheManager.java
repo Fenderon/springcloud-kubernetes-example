@@ -19,4 +19,6 @@ public interface CacheManager<V> {
     V putIfAbsent(String key, V value);
 
     V get(String key);
+
+    void remove(CacheKey arg);
 }
