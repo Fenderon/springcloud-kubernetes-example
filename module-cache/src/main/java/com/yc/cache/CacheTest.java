@@ -25,7 +25,7 @@ public class CacheTest {
         //演示并发
         CountDownLatch countDownLatch = new CountDownLatch(1);
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 1000; i++) {
             new Thread(() -> {
                 try {
                     countDownLatch.await();
@@ -47,6 +47,7 @@ public class CacheTest {
 
         long startTime = System.currentTimeMillis();
 
+        //多等一，，压测
         countDownLatch.countDown();
 
         Thread.sleep(1000);
