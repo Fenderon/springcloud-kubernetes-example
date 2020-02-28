@@ -1,5 +1,7 @@
 package com.yc.cache;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.*;
 
 /**
@@ -28,11 +30,18 @@ public class CacheTest {
         for (int i = 0; i < 1000; i++) {
             new Thread(() -> {
                 try {
+                    System.out.println(Thread.currentThread().getName() + "开始等待");
                     countDownLatch.await();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
+                SimpleDateFormat simpleDateFormat = ThreadSafeFormatter.dateFormatTheadLocal.get();
+                String time = simpleDateFormat.format(new Date());
+
                 try {
+                    System.out.println(Thread.currentThread().getName() + ": " + time + " 被放行");
+
                     computeWrapper.compute(new CacheReqeust());
 //                    computeWrapper.compute(new CacheReqeust(),100,TimeUnit.MICROSECONDS);
                 } catch (ExecutionException e) {
