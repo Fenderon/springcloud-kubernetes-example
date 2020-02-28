@@ -15,6 +15,7 @@
         <module>service-parent</module>
         <module>service-common</module>
         <module>service-rpc</module>
+        <module>module-cache</module>
     </modules>
 
 
