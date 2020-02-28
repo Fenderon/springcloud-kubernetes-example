@@ -1,6 +1,5 @@
 package com.yc.cache;
 
-import java.util.Random;
 import java.util.concurrent.*;
 
 /**
@@ -15,13 +14,7 @@ public class CacheTest {
 
         ExecutorService executorService = Executors.newCachedThreadPool();
 
-        Computable computable = new Computable<CacheReqeust, String>() {
-            @Override
-            public String compute(CacheReqeust cacheKey) throws ExecutionException, InterruptedException {
-                Thread.sleep(1000);
-                return cacheKey.getKey() + ": " + new Random().nextInt(100);
-            }
-        };
+        Computable computable = new TestComputable();
 
         ComputeCacheWrapper computeWrapper = new ComputeCacheWrapper<CacheReqeust, String>(
                 computable,
@@ -32,7 +25,7 @@ public class CacheTest {
         //演示并发
         CountDownLatch countDownLatch = new CountDownLatch(1);
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 20; i++) {
             new Thread(() -> {
                 try {
                     countDownLatch.await();
@@ -40,7 +33,8 @@ public class CacheTest {
                     e.printStackTrace();
                 }
                 try {
-                    computeWrapper.compute(new CacheReqeust(),100,TimeUnit.MICROSECONDS);
+                    computeWrapper.compute(new CacheReqeust());
+//                    computeWrapper.compute(new CacheReqeust(),100,TimeUnit.MICROSECONDS);
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {

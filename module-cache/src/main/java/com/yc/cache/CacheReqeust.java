@@ -1,7 +1,7 @@
 package com.yc.cache;
 
 /**
- * Description TODO
+ * 缓存 请求示例对象
  *
  * @version 1.0 create at 2020/2/28
  * @auther yangchuan
