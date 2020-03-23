@@ -21,6 +21,21 @@ public interface FieldComparator<T extends FieldMapDefiner> {
      *
      * @param origin          原对象
      * @param target          目标对象
+     * @return 返回以目标对象属性名称作为key，原对象属性值作为value的map
+     */
+    Map<String, Object> compare(Object origin, Object target) throws IllegalAccessException;
+
+
+    /**
+     * 比较两个对象的属性值差异，
+     *
+     * <p>
+     * key:   目标对象的field
+     * value: 原对象的值
+     * </p>
+     *
+     * @param origin          原对象
+     * @param target          目标对象
      * @param fieldMapDefiner 选择的字段映射器
      * @return 返回以目标对象属性名称作为key，原对象属性值作为value的map
      */

@@ -1,6 +1,7 @@
 package com.yc.common.field.comparator;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -9,6 +10,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -39,6 +41,12 @@ public abstract class AbstractFieldComparator<T extends FieldMapDefiner> impleme
      * 缓存的字段定义map
      */
     private Map<Class<T>, Map<Field, Field>> columnMap = new ConcurrentHashMap<>();
+
+    /**
+     * 默认缓存对象
+     * key = originClassName2targetClassName
+     */
+    private Map<String, Map<Field, Field>> defaultColumnMap = new ConcurrentHashMap<>();
 
     /**
      * 反射获取Field属性对象
@@ -168,8 +176,20 @@ public abstract class AbstractFieldComparator<T extends FieldMapDefiner> impleme
 
     @Override
     public void syncData(Object origin, Object target, Class<T> fieldMapDefiner, boolean reverseFlag) throws IllegalAccessException {
+        doSyncData(origin, target, getColunmDef(fieldMapDefiner), reverseFlag);
+    }
 
-        for (Map.Entry<Field, Field> entry : getColunmDef(fieldMapDefiner).entrySet()) {
+    /**
+     * 复制对象
+     *
+     * @param origin      原对象
+     * @param target      目标对象
+     * @param map         字段映射器
+     * @param reverseFlag 是否反转
+     * @throws IllegalAccessException
+     */
+    private void doSyncData(Object origin, Object target, Map<Field, Field> map, boolean reverseFlag) throws IllegalAccessException {
+        for (Map.Entry<Field, Field> entry : map.entrySet()) {
             if (reverseFlag) {
                 //反转，同步到origin
                 entry.getKey().set(origin, entry.getValue().get(target));
@@ -179,4 +199,71 @@ public abstract class AbstractFieldComparator<T extends FieldMapDefiner> impleme
             }
         }
     }
+
+    @Override
+    public Map<String, Object> compare(Object origin, Object target) throws IllegalAccessException {
+
+        Class<?> originClass = origin.getClass();
+        Class<?> targetClass = target.getClass();
+        String key = originClass.getSimpleName() + "2" + targetClass.getSimpleName();
+
+        if (defaultColumnMap.containsKey(key)) {
+            return doCompare(origin, target, defaultColumnMap.get(key), false);
+        }
+
+        Map<Field, Field> fieldCacheMap = new HashMap<>();
+
+        Map<String, Object> map = new HashMap<>();
+
+        Field[] originFields = originClass.getDeclaredFields();
+        for (Field of : originFields) {
+            of.setAccessible(true);
+            try {
+                Field tf = targetClass.getDeclaredField(of.getName());
+                fieldCacheMap.put(of, tf);
+                tf.setAccessible(true);
+                if (!Objects.equals(of.get(origin), tf.get(target))) {
+                    map.put(tf.getName(), of.get(origin));
+                }
+            } catch (NoSuchFieldException e) {
+                log.warn("目标对象没有【{}】field", of.getName());
+            }
+        }
+
+        defaultColumnMap.put(key, fieldCacheMap);
+
+        return map;
+    }
+
+//    @Override
+//    public void syncData(Object origin, Object target) throws IllegalAccessException {
+//
+//        //用BeanUtils比较好...
+
+////        Class<?> originClass = origin.getClass();
+////        Class<?> targetClass = target.getClass();
+////        String key = originClass.getSimpleName() + "2" + targetClass.getSimpleName();
+////
+////        if (defaultColumnMap.containsKey(key)) {
+////            doSyncData(origin, target, defaultColumnMap.get(key), false);
+////            return;
+////        }
+////
+////        Map<Field, Field> fieldCacheMap = new HashMap<>();
+////
+////        Field[] originFields = originClass.getDeclaredFields();
+////        for (Field of : originFields) {
+////            of.setAccessible(true);
+////            try {
+////                Field tf = targetClass.getDeclaredField(of.getName());
+////                fieldCacheMap.put(of, tf);
+////                tf.setAccessible(true);
+////                tf.set(target, of.get(origin));
+////            } catch (NoSuchFieldException e) {
+////                log.warn("目标对象没有【{}】field", of.getName());
+////            }
+////        }
+////
+////        defaultColumnMap.put(key, fieldCacheMap);
+//    }
 }

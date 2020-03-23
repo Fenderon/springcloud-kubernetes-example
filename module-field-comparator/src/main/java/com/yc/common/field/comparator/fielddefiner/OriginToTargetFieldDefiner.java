@@ -38,11 +38,13 @@ public class OriginToTargetFieldDefiner implements FieldMapDefiner {
     public static class Origin{
         private String origin1;
         private String origin2;
+        private String common;
     }
 
     @Data
     public static class Target{
         private String target1;
         private String target2;
+        private String common;
     }
 }

@@ -5,10 +5,9 @@ import com.yc.common.field.comparator.FieldMapDefiner;
 import com.yc.common.field.comparator.fielddefiner.OriginToTargetFieldDefiner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.HashMap;
@@ -28,18 +27,51 @@ public class TestExample {
     private FieldComparator fieldComparator;
 
     @Test
+    public void testBeanCopy() throws IllegalAccessException {
+        OriginToTargetFieldDefiner.Origin origin = new OriginToTargetFieldDefiner.Origin();
+        origin.setOrigin1("origin1");
+        origin.setOrigin2("origin2");
+        origin.setCommon("origin_common");
+
+        OriginToTargetFieldDefiner.Target target = new OriginToTargetFieldDefiner.Target();
+        target.setTarget1("target1");
+        target.setTarget2("target2");
+        target.setCommon("target_common");
+
+        Long startTime = System.currentTimeMillis();
+        for (int i = 0; i < 1000000; i++) {
+            BeanUtils.copyProperties(origin,target);
+        }
+        System.out.println(System.currentTimeMillis() - startTime);
+
+        startTime = System.currentTimeMillis();
+        for (int i = 0; i < 1000000; i++) {
+//            fieldComparator.syncData(origin,target);
+        }
+        System.out.println(System.currentTimeMillis() - startTime);
+    }
+    @Test
     public void test() throws IllegalAccessException {
 
         OriginToTargetFieldDefiner.Origin origin = new OriginToTargetFieldDefiner.Origin();
         origin.setOrigin1("origin1");
         origin.setOrigin2("origin2");
+        origin.setCommon("origin_common");
 
         OriginToTargetFieldDefiner.Target target = new OriginToTargetFieldDefiner.Target();
         target.setTarget1("target1");
         target.setTarget2("target2");
+        target.setCommon("target_common");
+
+        Map compare = null;
+
+        //默认比较相同的字段
+        System.out.println("默认比较相同的字段 -- 1");
+        compare = fieldComparator.compare(origin, target);
+        System.out.println(compare);
 
         //比较原对象与目标对象差异，以目标对象为准
-        Map compare = fieldComparator.compare(origin, target, OriginToTargetFieldDefiner.class);
+        compare = fieldComparator.compare(origin, target, OriginToTargetFieldDefiner.class);
         System.out.println("比较原对象与目标对象差异，以目标对象为准");
         System.out.println(compare);
         System.out.println();
