@@ -16,6 +16,7 @@
         <module>service-common</module>
         <module>service-rpc</module>
         <module>module-cache</module>
+        <module>module-field-comparator</module>
     </modules>
 
 
