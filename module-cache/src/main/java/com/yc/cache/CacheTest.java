@@ -19,7 +19,12 @@ public class CacheTest {
         Computable computable = new TestComputable();
 
         ComputeCacheWrapper computeWrapper = new ComputeCacheWrapper<CacheReqeust, String>(
-                computable,
+                new Computable() {
+                    @Override
+                    public Object compute(CacheKey cacheKey) throws ExecutionException, InterruptedException, TimeoutException {
+                        return null;
+                    }
+                },
                 CacheManagerFactory.createDefaultCacheManager(),
                 executorService
         );

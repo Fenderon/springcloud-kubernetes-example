@@ -31,7 +31,6 @@ public class ComputeCacheWrapper<K extends CacheKey, V> implements Computable<K,
     private final static ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(5);
 
     private ComputeCacheWrapper() {
-
     }
 
     public ComputeCacheWrapper(Computable delagate,
