@@ -1,0 +1,9 @@
+FROM busybox:latest
+
+ENV LANG=C.UTF-8
+
+RUN set -eux && mkdir -p /home/skywalking/agent/
+
+ADD apache-skywalking-apm-bin/agent/ /home/skywalking/agent/
+
+WORKDIR /

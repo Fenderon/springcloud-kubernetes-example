@@ -27,7 +27,7 @@ spec:
           command: ['sh']
           args: ['-c','mkdir -p /skywalking/agent && cp -r /usr/skywalking/agent/* /skywalking/agent']
           volumeMounts:
-            - mountPath: /home/skywalking/agent
+            - mountPath: /usr/skywalking/agent
               name: sw-agent
       containers:
         - name: provide-service
