@@ -3,6 +3,6 @@
 mvn clean install -f pom.xml -pl client -am
 mvn clean package -pl server -Dmaven.test.skip=true -Dtag.version=dev.latest
 mvn dockerfile:push -pl server -Dtag.version=dev.latest
-kubectl delete --ignore-not-found=true -f ./server/src/main/resources/provide-dev.yaml
-kubectl apply -f ./server/src/main/resources/provide-dev.yaml
+kubectl delete --ignore-not-found=true -f ./server/src/main/resources/gateway-dev.yaml
+kubectl apply -f ./server/src/main/resources/gateway-dev.yaml
 
