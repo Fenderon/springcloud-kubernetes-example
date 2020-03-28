@@ -27,7 +27,7 @@
         <swagger-annotations.version>1.5.20</swagger-annotations.version>
         <swagger-bootstrap-ui.version>1.9.6</swagger-bootstrap-ui.version>
         <logstash-logback-encoder.version>6.3</logstash-logback-encoder.version>
-        <apm-toolkit-logback-1.x.version>6.3.0</apm-toolkit-logback-1.x.version>
+        <apm-toolkit-logback-1.x.version>6.5.0</apm-toolkit-logback-1.x.version>
     </properties>
 
     <dependencyManagement>

@@ -19,53 +19,59 @@ spec:
       labels:
         k8s-app: provide-service
     spec:
-#      serviceAccount: yc-app
       serviceAccountName: app-read
-      volumes:
-      - name: localtime
-        hostPath:
-          path: /etc/localtime
-#      - name: sw-agent
-#        emptyDir: {}
-#      initContainers:
-#        - image: my-registry:5000/skywalking-agent:6.5.0
-#          name: sidecar
-#          imagePullPolicy: IfNotPresent
-#          command: ['sh']
-#          args: ['-c','mkdir -p /skywalking/agent && cp -r /usr/skywalking/agent/* /skywalking/agent']
-#          volumeMounts:
-#            - mountPath: /skywalking/agent
-#              name: sw-agent
+      initContainers:
+        - image: my-registry:5000/skywalking:latest
+          name: sidecar
+          imagePullPolicy: IfNotPresent
+          command: ['sh']
+          args: ['-c','mkdir -p /skywalking/agent && cp -r /usr/skywalking/agent/* /skywalking/agent']
+          volumeMounts:
+            - mountPath: /home/skywalking/agent
+              name: sw-agent
       containers:
-      - name: provide-service
-        image: my-registry:5000/provide-server:dev.latest
-        imagePullPolicy: Always
-        volumeMounts:
+        - name: provide-service
+          image: my-registry:5000/provide-server:dev.latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          #        resources:
+          #          requests:
+          #            memory: 500MI # GI
+          #            cpu: 100m # m 一核心 = 1000m
+          #          limits:
+          #            memory: 100MI
+          #            cpu: 200m
+          env:
+            #            - name: aliyun_logs_appstdout
+            #              value: "stdout"
+            - name: aliyun_logs_applog
+              value: "/logs/*.log"
+            - name: aliyun_logs_applog_format
+              value: "json"
+            - name: SPRING_PROFILES_ACTIVE
+              value: dev
+            - name: JAVA_OPTS
+              value: -javaagent:/usr/skywalking/agent/skywalking-agent.jar
+            - name: SW_AGENT_NAME
+              value: provide-service
+            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
+              value: my-skywalking-skywalking-oap.skywalking:11800
+          volumeMounts:
+            - name: localtime
+              mountPath: /etc/localtime
+            - name: app-log
+              mountPath: /logs
+            - name: sw-agent
+              mountPath: /usr/skywalking/agent
+      volumes:
         - name: localtime
-          mountPath: /etc/localtime
-#        - name: sw-agent
-#          mountPath: /usr/skywalking/agent
-#        - name: log
-#          mountPath: /logs
-        ports:
-        - containerPort: 8080
-#        resources:
-#          requests:
-#            memory: 500MI # GI
-#            cpu: 100m # m 一核心 = 1000m
-#          limits:
-#            memory: 100MI
-#            cpu: 200m
-        env:
-        - name: SPRING_PROFILES_ACTIVE
-          value: dev
-#        - name: JAVA_OPTS
-#          value: -javaagent:/usr/skywalking/agent/skywalking-agent.jar
-#        - name: SW_AGENT_NAME
-#          value: provide-service
-#        - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-#          value: my-skywalking-skywalking-oap.skywalking:11800
-
+          hostPath:
+            path: /etc/localtime
+        - name: app-log
+          emptyDir: {}
+        - name: sw-agent
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
@@ -75,24 +81,8 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - port: 80
-    targetPort: 8080
-    protocol: TCP
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
   selector:
     k8s-app: provide-service
-
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: provide-service
-  namespace: my-service
-spec:
-  rules:
-    - host: provide-service
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: provide-service
-              servicePort: 80

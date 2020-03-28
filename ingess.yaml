@@ -1,0 +1,32 @@
+# 网关服务
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: my-service
+  name: gateway-service
+spec:
+  rules:
+    - host: yc.gateway.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: gateway-service
+              servicePort: 80
+
+---
+# skywalking
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: skywalking
+  name: skywalking-ui
+spec:
+  rules:
+    - host: yc.skywalking.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: my-skywalking-skywalking-ui
+              servicePort: 80
