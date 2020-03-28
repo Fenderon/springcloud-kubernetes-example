@@ -15,7 +15,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <docker.image.prefix>myregistry.com:5000</docker.image.prefix>
+        <docker.image.prefix>my-registry:5000</docker.image.prefix>
         <java.version>1.8</java.version>
         <cloud.version>Greenwich.SR2</cloud.version>
         <tag.version></tag.version>

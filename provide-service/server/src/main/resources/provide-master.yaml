@@ -28,7 +28,7 @@ spec:
 #      - name: sw-agent
 #        emptyDir: {}
 #      initContainers:
-#        - image: myregistry.com:5000/skywalking-agent:6.5.0
+#        - image: my-registry:5000/skywalking-agent:6.5.0
 #          name: sidecar
 #          imagePullPolicy: IfNotPresent
 #          command: ['sh']
@@ -38,7 +38,7 @@ spec:
 #              name: sw-agent
       containers:
       - name: provide-service
-        image: myregistry.com:5000/provide-server:master.latest
+        image: my-registry:5000/provide-server:master.latest
         imagePullPolicy: Always
         volumeMounts:
         - name: localtime
