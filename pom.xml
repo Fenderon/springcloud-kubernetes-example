@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <artifactId>springcloud-kubernetes-example</artifactId>
+    <groupId>com.yc.example</groupId>
+    <version>1.0</version>
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>consumer-service</module>
+        <module>gateway-service</module>
+        <module>module-cache</module>
+        <module>module-field-comparator</module>
+        <module>provide-service</module>
+        <module>service-common</module>
+        <module>service-parent</module>
+        <module>service-rpc</module>
+    </modules>
+
+</project>
