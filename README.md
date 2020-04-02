@@ -7,7 +7,7 @@
 # 基本组件
     服务发现：          spring-cloud-kubernetes
     网关：              spring-cloud-gateway   
-    rpc：              openFeign（底层使用okHttpClient）             
+    rpc：               openFeign（底层使用okHttpClient）             
     
 # 项目结构说明
     ---client 对外服务接口模块
