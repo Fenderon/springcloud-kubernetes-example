@@ -43,9 +43,9 @@ public class SwaggerConfiguration {
      */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Jwell CMS RESTful APIs")
-                .description("Jwell CMS RESTful APIs")
-                .termsOfServiceUrl("http://jwell.gateway.com")
+                .title("APP RESTful APIs")
+                .description("APP RESTful APIs")
+                .termsOfServiceUrl("http://yc.gateway.com")
                 .version("1.0")
                 .build();
     }

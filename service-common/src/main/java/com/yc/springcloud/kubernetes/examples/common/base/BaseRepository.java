@@ -9,5 +9,4 @@ package com.yc.springcloud.kubernetes.examples.common.base;
  */
 public class BaseRepository {
 
-    //获取jwt
 }
