@@ -41,5 +41,5 @@ public class AsyncThreadPoolProperties {
     /**
      * 线程前缀 默认: default-async-pool
      */
-    private String threadNamePrefix = "default-async-pool";
+    private String threadNamePrefix = "default-async-pool-";
 }

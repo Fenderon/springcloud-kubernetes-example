@@ -13,7 +13,6 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.RejectedExecutionHandler;
-import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
@@ -32,9 +31,9 @@ public class AsyncThreadPoolAutoConfiguration implements DisposableBean {
     private List<RunnableWrapper> runnableWrappers;
 
     @Bean
-    @ConditionalOnProperty(value = "thread-pool.async.auto-logged", matchIfMissing = true)
+    @ConditionalOnProperty(value = "thread-pool.async.auto-logged-error", matchIfMissing = true)
     public RunnableWrapper autoLoggedErrorRunnableWrapper() {
-        return new AutoLoggedRunnableWrapper();
+        return new AutoLoggedErrorRunnableWrapper();
     }
 
     @Bean
@@ -95,8 +94,6 @@ public class AsyncThreadPoolAutoConfiguration implements DisposableBean {
         // 初始化
         executor.initialize();
 
-        //设置异常处理
-        Thread.setDefaultUncaughtExceptionHandler(new DefaultUnCaughtExceptionHandler());
         return this.threadPoolTaskExecutor = executor;
     }
 

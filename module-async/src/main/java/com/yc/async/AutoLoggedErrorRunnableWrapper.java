@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
  * @version 1.0 create at 2020/4/13
  */
 @Slf4j
-public class AutoLoggedRunnableWrapper implements RunnableWrapper {
+public class AutoLoggedErrorRunnableWrapper implements RunnableWrapper {
 
     @Override
     public Runnable wrapper(Runnable runnable) {
@@ -27,7 +27,11 @@ public class AutoLoggedRunnableWrapper implements RunnableWrapper {
         @Override
         public void run() {
             log.info("异步线程开始执行：" + Thread.currentThread().getName());
-            delegate.run();
+            try {
+                delegate.run();
+            } catch (Exception e) {
+                log.error("异步线程发生异常：{}", Thread.currentThread().getName(), e);
+            }
             log.info("异步线程执行结束：" + Thread.currentThread().getName());
         }
 

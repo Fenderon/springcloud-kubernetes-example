@@ -1,7 +1,7 @@
 {
 	"properties": [
 		{
-			"name": "thread-pool.async.auto-logged",
+			"name": "thread-pool.async.auto-logged-error",
 			"type": "java.lang.Boolean",
 			"defaultValue": true,
 			"description": "自动记录异步执行的错误日志"

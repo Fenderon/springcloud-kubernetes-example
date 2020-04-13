@@ -13,6 +13,6 @@ public class DefaultUnCaughtExceptionHandler implements Thread.UncaughtException
 
     @Override
     public void uncaughtException(Thread t, Throwable e) {
-        log.warn("线程异常，终止啦" + t.getName(), e);
+        log.warn("线程异常：" + t.getName(), e);
     }
 }

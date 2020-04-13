@@ -26,9 +26,13 @@ public class BootApplication implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        for (int i = 0; i < 5; i++) {
-            executorService.execute(()->{
-                System.out.println("test-runnable");
+        for (int i = 0; i < 10; i++) {
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("test-runnable");
+                    throw new RuntimeException();
+                }
             });
         }
     }
