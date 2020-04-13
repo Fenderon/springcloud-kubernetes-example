@@ -1,9 +1,11 @@
 package com.yc.springcloud.kubernetes.examples.common.model.response;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.yc.springcloud.kubernetes.examples.common.code.ErrorCodes;
 import com.yc.springcloud.kubernetes.examples.common.utils.IBeanUtils;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.stream.Collectors;
