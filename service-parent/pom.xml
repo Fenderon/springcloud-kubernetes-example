@@ -28,6 +28,7 @@
         <swagger-bootstrap-ui.version>1.9.6</swagger-bootstrap-ui.version>
         <logstash-logback-encoder.version>6.3</logstash-logback-encoder.version>
         <apm-toolkit-logback-1.x.version>6.5.0</apm-toolkit-logback-1.x.version>
+        <mybatis.version>3.3.1</mybatis.version>
     </properties>
 
     <dependencyManagement>
@@ -99,6 +100,17 @@
                 <groupId>org.apache.skywalking</groupId>
                 <artifactId>apm-toolkit-logback-1.x</artifactId>
                 <version>${apm-toolkit-logback-1.x.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-core</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>${mybatis.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
