@@ -18,6 +18,7 @@
         <module>service-common</module>
         <module>service-parent</module>
         <module>service-rpc</module>
+        <module>module-sync</module>
     </modules>
 
 </project>
