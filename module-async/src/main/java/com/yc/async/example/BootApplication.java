@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+import java.util.function.Consumer;
+
 /**
  * 测试类
  *
@@ -31,7 +33,12 @@ public class BootApplication implements InitializingBean {
                 @Override
                 public void run() {
                     System.out.println("test-runnable");
-                    throw new RuntimeException();
+                }
+            });
+            executorService.execute(1L, new Consumer<Object>() {
+                @Override
+                public void accept(Object o) {
+                    System.out.println(o);
                 }
             });
         }

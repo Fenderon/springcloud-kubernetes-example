@@ -1,5 +1,6 @@
 package com.yc.async;
 
+import lombok.NonNull;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.validation.constraints.NotEmpty;
@@ -53,7 +54,7 @@ public interface RequestContextAsyncService {
      * @param consumer   消费函数
      * @param attributes request context attributes
      */
-    <T> void execute(@NotNull T param, Consumer<T> consumer, ServletRequestAttributes attributes);
+    <T> void execute(@NonNull T param, Consumer<T> consumer, ServletRequestAttributes attributes);
 
     /**
      * 执行一个消费函数，并且latch.countDown(1)
@@ -63,7 +64,7 @@ public interface RequestContextAsyncService {
      * @param latch      the latch
      * @param attributes request context attributes
      */
-    <T> void execute(@NotNull T param, Consumer<T> consumer, CountDownLatch latch, ServletRequestAttributes attributes);
+    <T> void execute(@NonNull T param, Consumer<T> consumer, CountDownLatch latch, ServletRequestAttributes attributes);
 
     /**
      * 执行一个消费函数，并且latch.countDown(1)
@@ -73,7 +74,7 @@ public interface RequestContextAsyncService {
      * @param latch      the latch
      * @param attributes request context attributes
      */
-    <T> void execute(@NotEmpty Collection<T> params, Consumer<T> consumer, CountDownLatch latch, ServletRequestAttributes attributes);
+    <T> void execute(@NonNull Collection<T> params, Consumer<T> consumer, CountDownLatch latch, ServletRequestAttributes attributes);
 
     /**
      * 执行一个function
@@ -83,7 +84,7 @@ public interface RequestContextAsyncService {
      * @param attributes request context attributes
      * @return 返回值
      */
-    <T, R> Future<R> execute(@NotNull T param, Function<T, R> function, ServletRequestAttributes attributes);
+    <T, R> Future<R> execute(@NonNull T param, Function<T, R> function, ServletRequestAttributes attributes);
 
     /**
      * 执行一个消费函数
@@ -93,5 +94,5 @@ public interface RequestContextAsyncService {
      * @param consumer   消费函数
      * @param attributes request context attributes
      */
-    <T, C> void execute(@NotNull T param, @NotNull C content, BiConsumer<T, C> consumer, ServletRequestAttributes attributes);
+    <T, C> void execute(@NonNull T param, @NonNull C content, BiConsumer<T, C> consumer, ServletRequestAttributes attributes);
 }

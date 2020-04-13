@@ -59,12 +59,12 @@ public class DefaultExecutorService implements AsyncExecutorService {
 
     @Override
     public <T, R> Future<R> execute(T param, Function<T, R> function) {
-        return new AsyncResult<>(function.apply(param));
+        return requestContextAsyncService.execute(param, function,getServletRequestAttributes());
     }
 
     @Override
     public <T, C> void execute(T param, C content, BiConsumer<T, C> consumer) {
-        consumer.accept(param, content);
+        requestContextAsyncService.execute(param, content, consumer,getServletRequestAttributes());
     }
 
     private static ServletRequestAttributes getServletRequestAttributes() {
