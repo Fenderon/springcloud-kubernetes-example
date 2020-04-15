@@ -52,6 +52,7 @@ public class HelloController extends BaseController implements TestBase {
     public TestDto test() {
         TestDto testDto = new TestDto();
         testDto.setStr("hello world, this is the k8s provide service");
+        log.info("this is the k9s provide service");
         return testDto;
     }
 }

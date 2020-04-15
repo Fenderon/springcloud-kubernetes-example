@@ -40,6 +40,7 @@ public class HelloController extends BaseController {
 
     @RequestMapping("/")
     public TestDto hello() {
+        log.info("start to request provide service");
         return testClient.test();
     }
 
