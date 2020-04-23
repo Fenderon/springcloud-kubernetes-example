@@ -19,6 +19,7 @@
         <module>service-parent</module>
         <module>service-rpc</module>
         <module>module-async</module>
+        <module>module-mysql</module>
     </modules>
 
 </project>

@@ -5,17 +5,26 @@ import com.yc.cache.*;
 import java.util.concurrent.*;
 
 /**
- * Description TODO
+ * 测试接口
  *
  * @author yangchuan
  * @version 1.0 create at 2020/3/23
  */
 public class Controller {
 
+    /**
+     * 线程池
+     */
     private static ExecutorService executorService = Executors.newCachedThreadPool();
 
+    /**
+     * 缓存管理器
+     */
     private static CacheManager cacheManager = CacheManagerFactory.createDefaultCacheManager();
 
+    /**
+     * 测试服务接口
+     */
     private TestService testService = new TestService();
 
     public Object get() throws InterruptedException, ExecutionException, TimeoutException {
